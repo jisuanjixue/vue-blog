@@ -12,12 +12,16 @@ import 'muse-ui/dist/muse-ui.css'
 import axios from 'axios'
 
 Vue.use(MuseUI)
-Vue.prototype.$http = axios
+Vue.prototype.$axios = axios
 FastClick.attach(document.body)
 Vue.use(VueRouter)
 
+Vue.prototype.$axios = axios.create({
+  baseURL: 'http://rap2api.taobao.org'
+})
 /* eslint-disable no-new */
 new Vue({
   router,
+  axios,
   render: h => h(App)
 }).$mount('#app')

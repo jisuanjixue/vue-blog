@@ -11,6 +11,12 @@ const router = new Router({
       component (resolve) {
         require(['../pages/Index.vue'], resolve)
       }
+    },
+    {
+      path: '/articles/:articles_id',
+      component (resolve) {
+        require(['../pages/Detail.vue'], resolve)
+      }
     }
   ]
 })
