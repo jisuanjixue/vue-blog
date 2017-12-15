@@ -23,9 +23,31 @@ Vue.prototype.$axios = axios.create({
   baseURL: 'http://rap2api.taobao.org'
 })
 /* eslint-disable no-new */
-new Vue({
-  router,
-  axios,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+store.dispatch('loadUser').then(() => {
+  new Vue({
+    router,
+    axios,
+    store,
+    render: h => h(App)
+    // methods: {
+    //   checkLogin () {
+    //     // 检查是否存在session
+    //     if (!this.getCookie('session')) {
+    //       // 如果没有登录状态则跳转到登录页
+    //       this.$router.push('/login')
+    //     } else {
+    //       // 否则跳转到登录后的页面
+    //       this.$router.push('/user_info')
+    //     }
+    //   }
+    // },
+    // // 进入页面时检查用户是否已经登录
+    // created () {
+    //   this.checkLogin()
+    // },
+    // // 监听路由检查登录
+    // watch: {
+    //   '$route': 'checkLogin'
+    // }
+  }).$mount('#app')
+})

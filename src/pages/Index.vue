@@ -3,14 +3,23 @@
   <section>
     <!--顶部工具栏 使用fixed固定在顶部-->
     <div class="top">
-      <!--左侧抽屉开关-->
-      <mu-icon-button @click="drawerToggle">
-        <i class="material-icons">list</i>
-      </mu-icon-button>
-       <!--右侧GitHub链接-->
-      <mu-icon-button>
-        <i class="iconfont icon-github"></i>
-      </mu-icon-button>
+      <!-- 菜单栏 -->
+      <mu-appbar class="nav" title="Title">
+        <!--左侧抽屉开关-->
+        <mu-icon-button @click="drawerToggle">
+          <i class="material-icons">list</i>
+        </mu-icon-button>
+        <!--右侧GitHub链接-->
+        <mu-flat-button slot="right"/>
+          <mu-avatar slot="right" src="https://ws3.sinaimg.cn/large/006tNc79gy1fmhjmu5oqhj308u04fa9z.jpg"/>
+          <span>{{user.name}}</span>
+        <!-- 右侧注册登录登出 -->
+          <mu-icon-menu  icon="more_vert" slot="right">
+            <router-link to="/login"> <mu-menu-item title="登录"/></router-link>
+             <router-link to="/login"> <mu-menu-item title="注册"/></router-link>
+            <router-link  to="/UserInfo"><mu-menu-item title="账户信息"/></router-link>
+          </mu-icon-menu>
+      </mu-appbar>
     </div>
 
     <!--点击抽屉开关打开的侧边菜单-->
@@ -28,7 +37,8 @@
     <!--头部-->
     <header>
       <div class="avatar"></div>
-      <div class="welcome">Welcome to xiaobo's blog</div>
+      <input type="text" v-model="new_user.name">
+      <div class="welcome">Welcome to xiaobo's blog <button @click="setUser({user: new_user})">xxx</button></div>
     </header>
 
     <!-- 新建文章 -->
@@ -61,13 +71,21 @@
 
 <script>
 import router from '../router'
+import { mapState, mapActions, mapMutations } from 'vuex'
+// import Login from '../component/Login.vue'
+// import UserInfo from '../component/UserInfo.vue'
 export default {
   name: 'index',
   components: {
+    // Login,
+    // UserInfo
   },
   data () {
     return {
       dialog: false,
+      new_user: {
+        name: ''
+      },
       articles: [], // 文章数据，请求获得
       list_id: '', // 每篇文章Id，请求获得
       isDrawerOpen: false,  // 侧边栏开关
@@ -85,7 +103,18 @@ export default {
         console.log(error)
       })
   },
+  computed: {
+    ...mapState([
+      'user'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'loadUser'
+    ]),
+    ...mapMutations([
+      'setUser'
+    ]),
    // 开关抽屉
     drawerToggle () {
       this.isDrawerOpen = !this.isDrawerOpen
@@ -119,6 +148,9 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
+.nav {
+  padding: 0 30px;
+}
 .title {
   font-size: 24px;
   margin-bottom: 24px;
