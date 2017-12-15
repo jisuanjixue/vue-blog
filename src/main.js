@@ -23,6 +23,7 @@ Vue.prototype.$axios = axios.create({
   baseURL: 'http://rap2api.taobao.org'
 })
 /* eslint-disable no-new */
+// store里调用了loadUser, 想要在页面上改变user.name, 就在这里用store.dispatch
 store.dispatch('loadUser').then(() => {
   new Vue({
     router,

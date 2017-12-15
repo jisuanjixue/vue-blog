@@ -37,8 +37,7 @@
     <!--头部-->
     <header>
       <div class="avatar"></div>
-      <input type="text" v-model="new_user.name">
-      <div class="welcome">Welcome to xiaobo's blog <button @click="setUser({user: new_user})">xxx</button></div>
+      <div class="welcome">Welcome to xiaobo's blog</div>
     </header>
 
     <!-- 新建文章 -->
@@ -83,9 +82,6 @@ export default {
   data () {
     return {
       dialog: false,
-      new_user: {
-        name: ''
-      },
       articles: [], // 文章数据，请求获得
       list_id: '', // 每篇文章Id，请求获得
       isDrawerOpen: false,  // 侧边栏开关
@@ -103,11 +99,13 @@ export default {
         console.log(error)
       })
   },
+  // store里的mapState方法是在生命周期的computed调用的
   computed: {
     ...mapState([
       'user'
     ])
   },
+  // store里的mapActions和mapMutations方法是在生命周期的methods调用的,它们分别是dispatch和commit方法
   methods: {
     ...mapActions([
       'loadUser'
