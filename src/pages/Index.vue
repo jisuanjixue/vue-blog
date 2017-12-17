@@ -9,7 +9,8 @@
         <mu-icon-button @click="drawerToggle">
           <i class="material-icons">list</i>
         </mu-icon-button>
-        <!--右侧GitHub链接-->
+        <mu-text-field icon="search" class="search"  slot="right" hintText="请输入搜索内容"/>
+        <!--右侧搜索-->
         <mu-flat-button slot="right"/>
           <mu-avatar slot="right" src="https://ws3.sinaimg.cn/large/006tNc79gy1fmhjmu5oqhj308u04fa9z.jpg"/>
           <span>{{user.name}}</span>
@@ -178,7 +179,6 @@ header {
   height: 440px;
   color: #fff;
   background-color: #2196f3;
-
 .avatar {
   height: 150px;
   width: 150px;
